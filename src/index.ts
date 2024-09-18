@@ -52,7 +52,7 @@ app.get('/', (c) => {
         <div class="bg-white shadow-sm rounded-lg p-3 print:shadow-none">
             <div class="relative">
                 <div class="absolute top-0 right-0">
-                    <img src="https://i.imgur.com/nnHVEV8.png" alt="Phala Icons" class="w-20 h-auto">
+                    <img src="https://i.imgur.com/hrslXwx.png" alt="Phala Icons" class="w-20 h-auto">
                 </div>
                 <div class="mb-3">
                     <h1 class="text-xl font-bold text-phala">PHALA NETWORK</h1>
@@ -192,11 +192,15 @@ npm run set-secrets  # Set Secrets</code></pre>
                 button.textContent = 'Copy';
 
                 button.addEventListener('click', () => {
-                    navigator.clipboard.writeText(block.textContent);
-                    button.textContent = 'Copied!';
-                    setTimeout(() => {
-                        button.textContent = 'Copy';
-                    }, 2000);
+                    const codeText = block.querySelector('code').textContent; // Get only the code content
+                    navigator.clipboard.writeText(codeText).then(() => {
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
                 });
 
                 block.style.position = 'relative';
